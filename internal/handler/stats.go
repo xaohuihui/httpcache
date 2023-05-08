@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/donutloop/httpcache/internal/cache"
+	"github.com/xaohuihui/httpcache/internal/cache"
 	"net/http"
 	"time"
 )

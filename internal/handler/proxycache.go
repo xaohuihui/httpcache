@@ -1,9 +1,10 @@
 package handler
 
 import (
+	"bytes"
 	"fmt"
-	"github.com/donutloop/httpcache/internal/cache"
-	"github.com/donutloop/httpcache/internal/roundtripper"
+	"github.com/xaohuihui/httpcache/internal/cache"
+	"github.com/xaohuihui/httpcache/internal/roundtripper"
 	"io"
 	"io/ioutil"
 	"net"
@@ -83,6 +84,8 @@ func (p *Proxy) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		resp.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	// 修复缓存命中后，body为空的错误
+	proxyResponse.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 	resp.WriteHeader(proxyResponse.StatusCode)
 	resp.Write(body)
 }
